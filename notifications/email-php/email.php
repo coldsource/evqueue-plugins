@@ -8,7 +8,7 @@ if($argc!=4)
 }
 
 // Read plugin configuration
-require_once 'conf/email.conf.php';
+require_once 'conf/email';
 
 // Read configuration
 $stdin = fopen('php://stdin','r');
