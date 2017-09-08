@@ -6,15 +6,16 @@
 	<xsl:template name="parameters-edit">
 		<table>
 			<tr>
-				<td colspan="4">
+				<td colspan="2">
 					<input type="hidden" name="id" value="{/page/get/@id}"/>
 					<input type="hidden" name="type_notif" value="email"/>
-					<label class="formLabel"><i>From:</i> field</label>
-					<input type="text" name="from" value="{/page/notification-type/email}" placeholder="E-mail From" /> <br/>
+					<label class="formLabel"><i>From :</i></label>
+					<xsl:text>&#160;</xsl:text>
+					<input type="text" name="from" style="width:300px;" value="{/page/notification-type/email}" placeholder="E-mail From" /> <br/>
 				</td>
-				<td>
-					<img class="action" src="{$SITE_BASE}images/ok.png" onclick="saveNotifType($(this));" title="Save" />
-					<img class="action" src="{$SITE_BASE}images/cancel.png" onclick="window.location.reload();" title="Cancel" />
+				<td class="tdActions">
+					<span class="faicon fa-floppy-o" onclick="saveNotifType($(this));" title="Save"></span>
+					<span class="faicon fa-ban" onclick="window.location.reload();" title="Cancel"></span>
 				</td>
 			</tr>
 		</table>
