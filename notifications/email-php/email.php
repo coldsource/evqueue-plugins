@@ -7,9 +7,6 @@ if($argc!=4)
 	die(5);
 }
 
-// Read plugin configuration
-require_once 'conf/email';
-
 // Read configuration
 $stdin = fopen('php://stdin','r');
 
@@ -21,14 +18,14 @@ if($config_str==false)
 }
 
 // Decode configuration
-$config = json_decode($config_str,true);
+$config = json_decode($config_str);
 if($config===null)
 {
 	error_log("Unable to decode json data\n");
 	die(2);
 }
 
-if(!isset($config['subject']) || !isset($config['when']) || !isset($config['to']) || !isset($config['body']))
+if(!isset($config->notificationconf->subject) || !isset($config->notificationconf->when) || !isset($config->notificationconf->to) || !isset($config->notificationconf->body))
 {
 	error_log("Invalid configuration\n");
 	die(3);
@@ -36,27 +33,18 @@ if(!isset($config['subject']) || !isset($config['when']) || !isset($config['to']
 
 // Read workflow instance informations from evQueue engine
 $vars = array('#ID#'=>$argv[1]);
-if($argv[3])
-{
-    $s = fsockopen("unix://{$argv[3]}");
-    
-    fwrite($s,"<workflow id='{$argv[1]}' />");
-    $xml = stream_get_contents($s);
-    fclose($s);
-    
-    $xml = simplexml_load_string($xml);
-    $workflow_attributes = $xml->attributes();
-    $vars['#NAME#'] = (string)$workflow_attributes['name'];
-    $vars['#START_TIME#'] = (string)$workflow_attributes['start_time'];
-    $vars['#END_TIME#'] = (string)$workflow_attributes['end_time'];
-}
+$xml = simplexml_load_string($config->instance);
+$workflow_attributes = $xml->attributes();
+$vars['#NAME#'] = (string)$workflow_attributes['name'];
+$vars['#START_TIME#'] = (string)$workflow_attributes['start_time'];
+$vars['#END_TIME#'] = (string)$workflow_attributes['end_time'];
 
 // Extract mail informations from config
-$to = $config['to'];
-$subject = $config['subject'];
-$body = $config['body'];
-$when = $config['when'];
-$cc = isset($config['cc'])?$config['cc']:false;
+$to = $config->notificationconf->to;
+$subject = $config->notificationconf->subject;
+$body = $config->notificationconf->body;
+$when = $config->notificationconf->when;
+$cc = isset($config->notificationconf->cc)?$config->notificationconf->cc:false;
 
 if($when!='ON_SUCCESS' && $when!='ON_ERROR' && $when!='ON_BOTH')
 {
@@ -83,7 +71,7 @@ $cmdline = '/usr/bin/mail';
 $cmdline .= " -s '".addslashes($subject)."'";
 if($cc)
 	$cmdline .= " -c '".addslashes($cc)."'";
-$cmdline .= " -a '".addslashes('From: '.$EMAIL_CONFIG['from'])."'";
+$cmdline .= " -a '".addslashes('From: '.$config->pluginconf->from)."'";
 $cmdline .= ' '.addslashes($to);
 
 $fd = array(0 => array('pipe', 'r'));
