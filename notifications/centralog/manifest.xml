@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin type="notification">
+	<name>Centralog</name>
+	<description>Send message for Centralog</description>
+	<binary>centralog.php</binary>
+	<configuration>
+		<plugin help="Specify the client centralog configuration">
+			<field label="Client Path" type="text" name="ClientPath" placeholder="chemin du binaire centralog client" />
+			<field label="Server IP" type="text" name="ServerIp" placeholder="ip du serveur" />
+			<field label="Server Port" type="text" name="ServerPort" placeholder="port du serveur" />
+		</plugin>
+		<notification help="The following variables can be used in message : #ID# (the instance ID), #NAME# (the workflow name), #START_TIME# (instance start time), #END_TIME# (instance end time).">
+			<field label="Send on" type="select" name="when">
+				<option value="ON_SUCCESS">workflow success</option>
+				<option value="ON_ERROR">workflow failure</option>
+				<option value="ON_BOTH">workflow end (always)</option>
+			</field>
+			<field label="Error level" type="select" name="level">
+				<option value="LOG_EMERG">EMERG - Système inutilisable</option>
+				<option value="LOG_ALERT">ALERT - Une décision doit être prise immédiatement</option>
+				<option value="LOG_CRIT">CRIT - Condition critique</option>
+				<option value="LOG_ERR">ERR - Condition d'erreur</option>
+				<option value="LOG_WARNING">WARNING - Condition d'alerte</option>
+				<option value="LOG_NOTICE">NOTICE - Condition normale</option>
+				<option value="LOG_INFO">INFO - Message d'information</option>
+				<option value="LOG_DEBUG">DEBUG - Message de déboguage</option>
+			</field>
+			<field label="Body" type="textarea" name="body" placeholder="Email body" />
+		</notification>
+	</configuration>
+</plugin>
+
+<!--
+<< "date" << bsoncxx::types::b_date{ts * 1000}
+<< "crit" << parse_log_level(varCrit)
+<< "machine" << varServer
+<< "domaine" << varHostname
+<< "source" << varSource
+<< "ip" << varIp
+<< "id" << varId
+<< "methode" << "" //varMethode
+<< "url" << "" //varUrl
+<< "status" << "ERROR"
+<< "referer" << ""
+<< "userAgent" << ""
+<< "execTime" << ""
+<< "error" << varError
+-->
