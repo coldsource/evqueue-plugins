@@ -75,17 +75,17 @@ $body = str_replace($vars,$values,$body);
 //2017-09-12 06:25:08.001049
 //body = 'web6 web6.priv [2017-02-13 18:19:59.450418] PHP Warning:  file_get_contents(http://175.65.1.2/): failed to open stream: Connection timed out in /var/www/html/test.php on line 2'
 
-$log = gethostname().' '.gethostname().' 0.0.0.0 '.$uuid.' ['.$workflow_attributes['end_time'].'] evQueue '.str_replace(array("\r\n", "\r", "\n"), "<br>", $body);
+$log = gethostname().' '.gethostname().' 0.0.0.0 '.$uuid.' ['.$workflow_attributes['end_time'].'] '.str_replace(array("\r\n", "\r", "\n"), "<br>", $body);
 
 // Send email
 $cmdline  = $config->pluginconf->ClientPath;
 $cmdline .= ' --ip '.$config->pluginconf->ServerIp;
 $cmdline .= ' -p '.$config->pluginconf->ServerPort;
-$cmdline .= ' --source logger';
+$cmdline .= ' --source evQueue';
 $cmdline .= ' --crit '.$level;
 
-file_put_contents('/tmp/evqueue_centralog_notif.txt', '# '.$cmdline);
-file_put_contents('/tmp/evqueue_centralog_notif.txt', "\n".$log, FILE_APPEND);
+//file_put_contents('/tmp/evqueue_centralog_notif.txt', '# '.$cmdline);
+//file_put_contents('/tmp/evqueue_centralog_notif.txt', "\n".$log, FILE_APPEND);
 
 $fd = array(0 => array('pipe', 'r'));
 $proc = proc_open($cmdline, $fd, $pipes);
