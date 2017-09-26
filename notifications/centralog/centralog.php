@@ -48,9 +48,8 @@ $level = $config->notificationconf->level;
 $uuid = 'UUID';
 $body = $config->notificationconf->body;
 
-if (substr($vars['#COMMENT#'], 0, 5) == 'UUID:'){
-  $uuid = substr($vars['#COMMENT#'], 5);
-}
+if (preg_match('/\[UUID:([^\]]*)\]/',$vars['#COMMENT#'],$m))
+  $uuid = $m[1];
 
 
 if($when!='ON_SUCCESS' && $when!='ON_ERROR' && $when!='ON_BOTH')
