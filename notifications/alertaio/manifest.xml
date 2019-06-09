@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin type="notification">
+	<name>Alerta.io</name>
+	<description>Send notification to Alerta.io</description>
+	<binary>alertaio.php</binary>
+	<configuration>
+		<plugin help="Specify the Alerta.io configuration">
+			<field label="URL" type="text" name="url" placeholder="Alerta.io server url" />
+			<field label="KEY" type="text" name="key" placeholder="Alerta.io server key" />
+			<field label="LINK" type="text" name="link" placeholder="evQueue URL" />
+		</plugin>
+		<notification help="The following variables will be used in alert : #ID# (the instance ID), #NAME# (the workflow name), #START_TIME# (instance start time), #END_TIME# (instance end time).">
+			<field label="Send on" type="select" name="when">
+				<option value="ON_SUCCESS">Workflow Success</option>
+				<option value="ON_ERROR">Workflow Failure</option>
+				<option value="ON_BOTH">Workflow End (Always)</option>
+			</field>
+			<field label="Severity level" type="select" name="severity">
+				<option value="critical">CRITICAL</option>
+				<option value="major">MAJOR</option>
+				<option value="warning">WARNING</option>
+				<option value="info">INFO</option>
+				<option value="normal">NORMAL</option>
+			</field>
+			<field label="Environment" type="select" name="environment">
+				<option value="Production">Production</option>
+				<option value="Pre-Production">Pre-Production</option>
+				<option value="UAT">User acceptance testing (UAT)</option>
+				<option value="Homologation">Homologation</option>
+				<option value="Testing">Testing</option>
+				<option value="Development">Development</option>
+				<option value="Shared">Shared</option>
+			</field>			
+		</notification>
+	</configuration>
+</plugin>
