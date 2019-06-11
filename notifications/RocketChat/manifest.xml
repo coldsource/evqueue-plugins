@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin type="notification">
+	<name>RocketChat</name>
+	<description>Send notification to RocketChat</description>
+	<binary>rocketchat.php</binary>
+	<configuration>
+		<plugin help="Specify the RocketChat configuration">
+			<field label="URL" type="text" name="url" placeholder="RocketChat API url (http(s)://server:port/api/v1/chat.postMessage)" />
+			<field label="UID" type="text" name="uid" placeholder="RocketChat user id" />
+			<field label="TOKEN" type="text" name="token" placeholder="RocketChat Token" />
+			<field label="LINK" type="text" name="link" placeholder="evQueue URL" />
+		</plugin>
+		<notification help="The following variables will be used in alert : #ID# (the instance ID), #NAME# (the workflow name), #START_TIME# (instance start time), #END_TIME# (instance end time).">
+			<field label="Send on" type="select" name="when">
+				<option value="ON_SUCCESS">Workflow Success</option>
+				<option value="ON_ERROR">Workflow Failure</option>
+				<option value="ON_BOTH">Workflow End (Always)</option>
+			</field>
+			<field label="Severity level (color)" type="select" name="color">
+				<option value="red">CRITICAL (red)</option>
+				<option value="yellow">WARNING (yellow)</option>
+				<option value="gray">INFO (gray)</option>
+				<option value="green">NORMAL (green)</option>
+			</field>
+			<field label="Rocket Room" type="text" name="room" placeholder="Room on RocketChat (userid must have permission on that room)" />			
+		</notification>
+	</configuration>
+</plugin>
