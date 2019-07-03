@@ -21,7 +21,7 @@ if($config_str==false)
 $config = json_decode($config_str);
 if($config===null)
 {
-	error_log("Unable to decode json data\n");
+	error_log("Unable to decode json data, configuration is probably not set correctly\n");
 	die(2);
 }
 
