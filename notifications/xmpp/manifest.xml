@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin type="notification">
+	<name>XMPP</name>
+	<description>Send XMPP notification</description>
+	<binary>xmpp.sh</binary>
+	<configuration>
+		<plugin help="Configure account that will we used to send notifications">
+			<field label="Server" type="text" name="jserver" placeholder="Server hostname" />
+			<field label="Username" type="text" name="username" placeholder="Account ID" />
+			<field label="Component" type="text" name="component" placeholder="Domain (eg jabber.org)" />
+			<field label="Password" type="text" name="password" placeholder="Account password" />
+		</plugin>
+		<notification help="Enter recipient and message. The following variables can be used in message: #ID#, #NAME and #ERRORS#.">
+			<field label="Send on" type="select" name="sendon" placeholder="When to send notification">
+				<option value="success">Workflow success</option>
+				<option value="error">Workflow failure</option>
+				<option value="always">Always</option>
+			</field>
+			<field label="To" type="text" name="to" placeholder="Recipient jabber ID" />
+			<field label="Message" type="textarea" name="message" placeholder="Message content" />
+		</notification>
+	</configuration>
+</plugin>
