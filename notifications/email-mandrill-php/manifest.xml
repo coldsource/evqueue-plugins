@@ -9,7 +9,7 @@
 			<field label="From email" type="text" name="from" placeholder="e-mail adress" />
 			<field label="From name" type="text" name="from_name" placeholder="Sender name" />
 		</plugin>
-		<notification help="The following variables can be used in subject and body : #ID# (the instance ID), #NAME# (the workflow name), #START_TIME# (instance start time), #END_TIME# (instance end time).">
+		<notification help="The following variables can be used in subject and body : #ID# (the instance ID), #NAME# (the workflow name), #START_TIME# (instance start time), #END_TIME# (instance end time). The following variables can be used in body : #PARAMETERS# (the workflow parameters), #ERRORS# (output of failed tasks), #OUTPUT_{job name}# (output of job {job name}).">
 			<field label="Send on" type="select" name="when">
 				<option value="ON_SUCCESS">workflow success</option>
 				<option value="ON_ERROR">workflow failure</option>
