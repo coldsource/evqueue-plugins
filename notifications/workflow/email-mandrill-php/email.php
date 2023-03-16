@@ -81,7 +81,10 @@ $vars['#END_TIME#'] = (string)$worflow->getAttribute("end_time");
 
 $parameters = $xpath->evaluate('//parameters/parameter');
 foreach($parameters as $parameter)
+{
+	$vars["#PARAMETER_{$parameter->getAttribute("name")}#"] = $parameter->textContent;
 	$vars['#PARAMETERS#'][$parameter->getAttribute("name")] = $parameter->textContent;
+}
 
 // Extract mail informations from config
 $to = $config['notificationconf']['to'];
